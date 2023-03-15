@@ -9,5 +9,3 @@
     > nodemon server.js
 - Then open your browser and enter the following address:
     > http://localhost:3000/
-
-If you face any problem, please feel free to contact me.
