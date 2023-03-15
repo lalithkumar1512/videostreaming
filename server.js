@@ -1,7 +1,5 @@
 var express = require("express");
-var app = express();
 var http = require("http").createServer(app);
-var socketIO = require("socket.io")(http);
 var formidable = require("formidable");
 var fileSystem = require("fs");
 var mongoClient = require("mongodb").MongoClient;
@@ -11,9 +9,9 @@ var expressSession = require("express-session");
 var bcrypt = require("bcryptjs");
 const { getVideoDurationInSeconds } = require('get-video-duration');
 
-var nodemailer = require("nodemailer");
-
 require("dotenv").config();
+
+var app = express();
 
 var mainURL = "http://localhost:3000";
 
@@ -49,10 +47,6 @@ function getUser(userId, callBack) {
 const port = process.env.PORT || 3000; 
 http.listen(port, function () {
 	console.log("Server started at http://localhost:3000/");
-
-	socketIO.on("connection", function (socket) {
-		//
-	});
 
 	mongoClient.connect("mongodb+srv://lalithkumar1512:chinnapinni@userdb.ni6slbq.mongodb.net/?retryWrites=true&w=majority", { useUnifiedTopology: true }, function (error, client) {
 		if (error) {
@@ -152,12 +146,7 @@ http.listen(port, function () {
 
 
 		app.get("/personal", function (request, result) {
-			// if (request.session.user_id) {
-			// 	result.redirect("/personal");
-			// 	return;
-			// }=
-            console.log(localStorage.getItem("ID"))
-			database.collection("users").find({"_id":ObjectId(localStorage.getItem("ID"))}).sort({ "createdAt": -1 }).toArray((error1, users) => {
+				database.collection("users").find({"_id":ObjectId(localStorage.getItem("ID"))}).sort({ "createdAt": -1 }).toArray((error1, users) => {
 				console.log(users);
 				let c=-1;
 				let n="";
@@ -342,17 +331,7 @@ http.listen(port, function () {
 									database.collection("users").updateOne({
 										"_id": ObjectId(request.session.user_id)
 									}, {
-										// $push: {
-										// 			"videocount":{
-										// 				"name":files.video.name,
-										// 				"count":0
-										// 			}
-										// 		},
 										$push: {
-											// "videocount":{
-											// 	"name":files.video.name,
-											// 	"count":0
-											// },
 											"videos": {
 												"_id": data.insertedId,
 												"filePath": newPath,
