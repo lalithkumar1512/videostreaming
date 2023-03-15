@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <center>
+              <h1>UserName</h1>
+              <span id="username"></span>
+              <br>
+              <br>
+              <h1>UserEmail</h1>
+              <span id="useremail"></span>
+              <br>
+              <br>
+              <h1>WatchTime</h1>
+              <span id="watchtime"></span>
+              <h1>Most Watched</h1>
+              <h3>VideoName:<%=name%></h3>
+              <h3>Count:<%=count%></h3>
+              <br>
+              <h1>History</h1>
+              <ul> 
+               <% users.map((user)=>{ %>
+                  <% user.videocount.map((u)=>{ %>
+                     <h4>
+                     <%= u.name%>
+                           --       
+                     <%= u.count%>
+                     </h4>
+                     <% }) %>
+                <!-- </li> -->
+              
+               <% }) %>
+              </ul>
+            </center>
+        <script type="text/javascript">
+
+           var ajax = new XMLHttpRequest();
+           ajax.open("GET", "/get_user", true);
+
+           ajax.onreadystatechange = function () {
+              if (this.readyState == 4 && this.status == 200) {
+                 var response = JSON.parse(this.responseText);
+
+                 if (response.status == "success") {
+                    window.user = response.user;
+                    document.getElementById("username").innerHTML = user.first_name + " " + user.last_name;
+                    document.getElementById("watchtime").innerHTML=user.watchtime;
+                    document.getElementById("useremail").innerHTML=user.email;
+                    // document.getElementById("watchtime").innerHTML=user.watchtime;
+                 }
+              }
+           };
+
+           ajax.send();
+        </script>
+</body>
+</html>
