@@ -996,12 +996,5 @@ http.listen(port, function () {
 			}
 		});
 
-		app.get("/pro-version", function (request, result) {
-			result.render("pro-version", {
-				"isLogin": request.session.user_id ? true : false,
-				"url": request.url
-			});
-		});
-
-	}); // end of Mongo DB
-}); //  end of HTTP.listen
+	}); 
+}); 
