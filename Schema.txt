@@ -1,0 +1,54 @@
+                        Schema design                 
+What i implemented...
+                           User
+id
+first_name
+last_name
+email
+password
+videocount: Video object Array( containing name and the respective count)
+watch time
+videos : Video object Array( represents what are the videos uploaded by user) 
+
+
+                            Videos
+id
+user object:(represents the user who created/uploaded the video)
+filepath:(Used to store in local database)
+created at:(time of creation)
+no.of views
+hours
+minutes
+seconds
+title of the video
+description of the video
+tags 
+category of the video
+thumbnail filname
+
+
+Schema
+Can be improved by removing attributes and using joining the tables
+
+
+                      Get and Post Request
+
+
+                            Get
+Home
+register
+login
+logout
+personal
+get_user
+upload
+buffervideo:id
+watch
+search
+search using related videos
+
+                           Post
+register
+login
+upload
+do comment
